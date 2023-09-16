@@ -56,7 +56,6 @@ The software components and tools used in this project include:
 
 1. Clone this repository to your local machine using Git:
 
-
 2. Connect your FPGA development board to your machine, following the manufacturer's instructions.
 
 3. Install any necessary software tools or libraries required for your specific FPGA board and machine learning tasks.
