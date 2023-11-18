@@ -1,11 +1,11 @@
-""" Train my Anime Model """
-
 # Imports
 import torch
 import torch.optim as optim
+import torch.nn as nn
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 from torchvision.datasets import ImageFolder
+from torchsummary import summary  # Assuming you have torchsummary installed
 import pathlib
 from pathlib import Path
 from anime_model import AnimeCharacterCNN
@@ -17,8 +17,8 @@ BATCH_SIZE = 32
 num_classes = 10
 
 # Path to data
-ROOT = pathlib.Path().absolute()
-DATA_PATH = ROOT / "data"
+ROOT = pathlib.Path().cwd()
+DATA_PATH = ROOT.parent / "data"
 
 
 def load_data():
@@ -33,8 +33,7 @@ def load_data():
     )
 
     # Load data
-    train_dataset = ImageFolder(DATA_PATH / "train", transform=transform)
-    test_dataset = ImageFolder(DATA_PATH / "test", transform=transform)
+    train_dataset = ImageFolder(DATA_PATH / "dataset/dataset", transform=transform)
 
     # Create data loaders
     train_loader = DataLoader(
@@ -53,12 +52,12 @@ def initalize_model(num_classes):
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
-    summary(model, (3, 128, 128))
+    summary(model, (3, 64, 64))  # Adjust input size based on your model
     return model, device
 
 
 def train_model(
-    model, dataloader, num_epochs, device, save_path="model/anime_model.py"
+    model, dataloader, num_epochs, device, save_path="model/anime_model.pth"
 ):
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
@@ -75,9 +74,9 @@ def train_model(
             loss.backward()
             optimizer.step()
 
-        printf(f"Epoch: {epoch} Loss: {loss.item()}")
+        print(f"Epoch: {epoch} Loss: {loss.item()}")
 
-        torch.save(model.state_dict(), save_path)
+    torch.save(model.state_dict(), save_path)
 
 
 def main():
