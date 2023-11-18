@@ -32,18 +32,43 @@ def load_data():
         ]
     )
 
-    # Load data
-    train_dataset = ImageFolder(DATA_PATH / "dataset/dataset", transform=transform)
+    # Define your dataset path
+    dataset_path = DATA_PATH / "dataset/dataset"
 
-    # Create data loaders
+    # Create a custom dataset using DatasetFolder
+    class CustomDataset(DatasetFolder):
+        def __init__(self, root, transform=None, target_transform=None):
+            super(CustomDataset, self).__init__(
+                root,
+                loader=None,
+                extensions=".jpg",
+                transform=transform,
+                target_transform=target_transform,
+            )
+            self.imgs = self.samples
+
+        def __len__(self):
+            return len(self.imgs)
+
+        def __getitem__(self, index):
+            path, target = self.imgs[index]
+            sample = self.loader(path)
+            if self.transform is not None:
+                sample = self.transform(sample)
+            if self.target_transform is not None:
+                target = self.target_transform(target)
+
+            return sample, target
+
+    # Load data
+    train_dataset = CustomDataset(root=dataset_path, transform=transform)
+
+    # Create data loader
     train_loader = DataLoader(
         train_dataset, batch_size=BATCH_SIZE, shuffle=True, num_workers=2
     )
-    test_loader = DataLoader(
-        test_dataset, batch_size=BATCH_SIZE, shuffle=False, num_workers=2
-    )
 
-    return train_loader, test_loader
+    return train_loader
 
 
 def initalize_model(num_classes):
