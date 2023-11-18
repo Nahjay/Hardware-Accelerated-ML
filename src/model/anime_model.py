@@ -7,7 +7,7 @@ import torch.nn.functional as F
 
 
 # Create Model
-class AnimeModel(nn.Module):
+class AnimeCharacterCNN(nn.Module):
     def __init__(self, num_classes):
         super(AnimeCharacterCNN, self).__init__()
         self.conv1 = nn.Conv2d(3, 64, kernel_size=3, padding=1)
