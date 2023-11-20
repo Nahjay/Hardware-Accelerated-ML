@@ -2,10 +2,14 @@ import torch
 from torchvision.transforms import ToTensor
 from PIL import Image
 from model.anime_model import AnimeCharacterCNN
+from data.data_loader import load_data
 
 # Load the trained model
-model = AnimeCharacterCNN(num_classes=your_num_classes)
-model.load_state_dict(torch.load("model/anime_model.pth"))
+train_loader = load_data()
+unique_labels = set(train_loader.dataset.file_list)
+num_classes = len(unique_labels)
+model = AnimeCharacterCNN(num_classes=num_classes)
+model.load_state_dict(torch.load("anime_model.pth"))
 model.eval()
 
 # Set device to GPU if available
