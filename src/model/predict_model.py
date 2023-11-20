@@ -1,9 +1,10 @@
 import torch
 from torchvision import transforms
-from torchvision.transforms import ToTensor
 from PIL import Image
-from model.anime_model import AnimeCharacterCNN
-from data.data_loader import load_data
+from anime_model import AnimeCharacterCNN
+from train_model import load_data
+
+# from data.data_loader import load_data
 
 # Load the trained model
 train_loader = load_data()
@@ -28,9 +29,7 @@ transform = transforms.Compose(
 
 
 # Load and preprocess a sample image
-image_path = (
-    "/home/atomi/Documents/Projects/Character-Identification-ML/src/data/Nprofile2.jpg"
-)
+image_path = "/app/data/Nprofile2.jpg"
 image = Image.open(image_path).convert("RGB")
 input_tensor = transform(image).unsqueeze(0).to(device)
 
