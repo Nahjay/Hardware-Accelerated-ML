@@ -120,6 +120,8 @@ def main():
     """Main function"""
     train_loader = load_data()
     unique_labels = set(train_loader.dataset.file_list)
+    for label in unique_labels:
+        print(label)
     num_classes = len(unique_labels)
     model, device = initalize_model(num_classes)
     train_model(model, train_loader, NUM_EPOCHS, device)
