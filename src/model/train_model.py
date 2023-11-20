@@ -12,12 +12,13 @@ from PIL import Image
 import pathlib
 from pathlib import Path
 from anime_model import AnimeCharacterCNN
+from sklearn.preprocessing import LabelEncoder
 
 # Constants
 NUM_EPOCHS = 10
 LEARNING_RATE = 0.001
 BATCH_SIZE = 32
-num_classes = 10
+# num_classes = 10
 
 # Path to data
 ROOT = pathlib.Path().cwd()
@@ -83,16 +84,24 @@ def initalize_model(num_classes):
     return model, device
 
 
-def train_model(
-    model, dataloader, num_epochs, device, save_path="model/anime_model.pth"
-):
+def train_model(model, dataloader, num_epochs, device, save_path="anime_model.pth"):
+    print("Training model...")
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
 
+    label_encoder = LabelEncoder()
+    print(f"{label_encoder}")
+    print("Label encoder created...")
+    print("Starting training loop...")
+
     for epoch in range(num_epochs):
+        print(f"Epoch: {epoch}")
         for inputs, labels in dataloader:
             inputs = inputs.to(device)
-            labels = labels.to(device)
+
+            # Convert labels to numerical indices
+            labels = label_encoder.fit_transform(labels)
+            labels = torch.tensor(labels, dtype=torch.long).to(device)
 
             optimizer.zero_grad()
 
@@ -100,6 +109,7 @@ def train_model(
             loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
+            print(f"Epoch: {epoch} Loss: {loss.item()}")
 
         print(f"Epoch: {epoch} Loss: {loss.item()}")
 
@@ -109,6 +119,8 @@ def train_model(
 def main():
     """Main function"""
     train_loader = load_data()
+    unique_labels = set(train_loader.dataset.file_list)
+    num_classes = len(unique_labels)
     model, device = initalize_model(num_classes)
     train_model(model, train_loader, NUM_EPOCHS, device)
 
