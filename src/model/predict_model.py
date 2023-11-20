@@ -1,4 +1,5 @@
 import torch
+from torchvision import transforms
 from torchvision.transforms import ToTensor
 from PIL import Image
 from model.anime_model import AnimeCharacterCNN
@@ -17,10 +18,19 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
 # Define the image transformation
-transform = ToTensor()
+transform = transforms.Compose(
+    [
+        transforms.Resize((64, 64)),
+        transforms.ToTensor(),
+        transforms.Normalize((0.5,), (0.5,)),
+    ]
+)
+
 
 # Load and preprocess a sample image
-image_path = "path/to/your/test/image.jpg"
+image_path = (
+    "/home/atomi/Documents/Projects/Character-Identification-ML/src/data/Nprofile2.jpg"
+)
 image = Image.open(image_path).convert("RGB")
 input_tensor = transform(image).unsqueeze(0).to(device)
 
