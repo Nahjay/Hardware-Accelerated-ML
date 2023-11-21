@@ -18,18 +18,12 @@ class AnimeCharacterCNN(nn.Module):
         self.fc1 = nn.Linear(128 * 16 * 16, 128)
         self.dropout = nn.Dropout(0.5)  # Adjust dropout rate as needed
         self.fc2 = nn.Linear(128, num_classes)
-        self.conv3 = nn.Conv2d(128, 256, kernel_size=3, padding=1)
-        self.conv4 = nn.Conv2d(256, 512, kernel_size=3, padding=1)
-        # self.dropout = nn.Dropout(0.5)  # Adjust dropout rate as needed
 
     def forward(self, x):
         x = self.pool(F.relu(self.bn1(self.conv1(x))))
         x = self.pool(F.relu(self.bn2(self.conv2(x))))
-        # x = self.pool(F.relu(self.conv3(x)))
-        # x = self.pool(F.relu(self.conv4(x)))
         x = x.view(-1, 128 * 16 * 16)
         x = F.relu(self.fc1(x))
-        # x = F.relu(self.fc2(x))
         x = self.dropout(x)
         x = self.fc2(x)
         return x
