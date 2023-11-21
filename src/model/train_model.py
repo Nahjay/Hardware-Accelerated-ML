@@ -9,7 +9,7 @@ from anime_model import AnimeCharacterCNN  # Assuming you have this model defini
 
 # Constants
 NUM_EPOCHS = 20
-LEARNING_RATE = 0.01
+LEARNING_RATE = 0.001
 BATCH_SIZE = 64
 ROOT = pathlib.Path().cwd()
 DATA_PATH = ROOT.parent / "data"
