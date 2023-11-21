@@ -10,6 +10,7 @@ from train_model import load_data
 train_loader = load_data()
 unique_labels = set(train_loader.dataset.file_list)
 num_classes = len(unique_labels)
+print(f"Number of classes: {num_classes}")
 model = AnimeCharacterCNN(num_classes=num_classes)
 model.load_state_dict(torch.load("anime_model.pth"))
 model.eval()
@@ -29,7 +30,7 @@ transform = transforms.Compose(
 
 
 # Load and preprocess a sample image
-image_path = "/app/data/Nprofile2.jpg"
+image_path = "/app/data/dataset/dataset/Naruto_Uzumaki.jpg"
 image = Image.open(image_path).convert("RGB")
 input_tensor = transform(image).unsqueeze(0).to(device)
 
@@ -37,6 +38,7 @@ input_tensor = transform(image).unsqueeze(0).to(device)
 with torch.no_grad():
     output = model(input_tensor)
     predicted_class = torch.argmax(output).item()
+
 
 # Print the predicted class
 print(f"Predicted class: {predicted_class}")
