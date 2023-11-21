@@ -1,4 +1,4 @@
-""" Create Anime Machine Learning Model """
+""" Create Image Recognition Machine Learning Model """
 
 # Imports
 import torch
@@ -7,9 +7,9 @@ import torch.nn.functional as F
 
 
 # Create Model
-class AnimeCharacterCNN(nn.Module):
+class ImageCNN(nn.Module):
     def __init__(self, num_classes):
-        super(AnimeCharacterCNN, self).__init__()
+        super(ImageCNN, self).__init__()
         self.conv1 = nn.Conv2d(3, 64, kernel_size=3, padding=1)
         self.bn1 = nn.BatchNorm2d(64)
         self.conv2 = nn.Conv2d(64, 128, kernel_size=3, padding=1)

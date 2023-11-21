@@ -5,10 +5,10 @@ import torch.optim as optim
 import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 from torchvision.datasets import STL10
-from anime_model import AnimeCharacterCNN  # Assuming you have this model definition
+from image_model import ImageCNN  # Assuming you have this model definition
 
 # Constants
-NUM_EPOCHS = 20
+NUM_EPOCHS = 40
 LEARNING_RATE = 0.00001
 BATCH_SIZE = 128
 ROOT = pathlib.Path().cwd()
@@ -47,8 +47,8 @@ def load_data():
 
 
 def initialize_model(num_classes):
-    """Create Anime Machine Learning Model"""
-    model = AnimeCharacterCNN(num_classes)
+    """Create Image Machine Learning Model"""
+    model = ImageCNN(num_classes)
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
@@ -79,7 +79,7 @@ def validate(model, dataloader, criterion):
     return average_loss
 
 
-def train_model(model, dataloader, num_epochs, device, save_path="anime_model.pth"):
+def train_model(model, dataloader, num_epochs, device, save_path="image_model.pth"):
     print("Training model...")
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)

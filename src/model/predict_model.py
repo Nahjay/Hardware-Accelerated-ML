@@ -48,7 +48,7 @@
 import torch
 from torchvision import transforms
 from PIL import Image
-from anime_model import AnimeCharacterCNN
+from image_model import ImageCNN
 from train_model import load_data
 
 
@@ -81,8 +81,8 @@ def main():
     unique_labels = set(train_loader.dataset.classes)
     num_classes = len(unique_labels)
     print(f"Number of classes: {num_classes}")
-    model = AnimeCharacterCNN(num_classes=num_classes)
-    model.load_state_dict(torch.load("anime_model.pth"))
+    model = ImageCNN(num_classes=num_classes)
+    model.load_state_dict(torch.load("image_model.pth"))
     model.eval()
 
     # Set device to GPU if available
