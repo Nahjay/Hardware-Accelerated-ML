@@ -9,8 +9,8 @@ from anime_model import AnimeCharacterCNN  # Assuming you have this model defini
 
 # Constants
 NUM_EPOCHS = 20
-LEARNING_RATE = 0.0001
-BATCH_SIZE = 64
+LEARNING_RATE = 0.00001
+BATCH_SIZE = 128
 ROOT = pathlib.Path().cwd()
 DATA_PATH = ROOT.parent / "data"
 
@@ -19,9 +19,9 @@ def load_data():
     """Load data from STL-10 dataset"""
     transform = transforms.Compose(
         [
-            transforms.RandomHorizontalFlip(),
-            transforms.RandomRotation(10),
-            transforms.RandomResizedCrop(64),
+            # transforms.RandomHorizontalFlip(),
+            # transforms.RandomRotation(10),
+            transforms.Resize((64, 64)),
             transforms.ToTensor(),
             transforms.Normalize(
                 (0.5, 0.5, 0.5), (0.5, 0.5, 0.5)
@@ -55,6 +55,30 @@ def initialize_model(num_classes):
     return model, device
 
 
+def validate(model, dataloader, criterion):
+    model.eval()  # Set the model to evaluation mode
+    total_loss = 0.0
+    correct_predictions = 0
+    total_samples = 0
+
+    with torch.no_grad():
+        for inputs, labels in dataloader:
+            outputs = model(inputs)
+            loss = criterion(outputs, labels)
+            total_loss += loss.item()
+
+            _, predicted = torch.max(outputs, 1)
+            correct_predictions += (predicted == labels).sum().item()
+            total_samples += labels.size(0)
+
+    average_loss = total_loss / len(dataloader)
+    accuracy = correct_predictions / total_samples
+
+    print(f"Validation Loss: {average_loss:.4f}, Accuracy: {accuracy * 100:.2f}%")
+
+    return average_loss
+
+
 def train_model(model, dataloader, num_epochs, device, save_path="anime_model.pth"):
     print("Training model...")
     criterion = nn.CrossEntropyLoss()
@@ -82,8 +106,8 @@ def train_model(model, dataloader, num_epochs, device, save_path="anime_model.pt
             print(f"Epoch: {epoch} Loss: {loss.item()}")
 
         epoch_loss = running_loss / len(dataloader)
-        validation_loss = validate(model, dataloader, device)
-        scheduler.step(validation_loss)
+        # validation_loss = validate(model, dataloader, device)
+        # scheduler.step(validation_loss)
         scheduler.step(epoch_loss)
 
         print(f"Epoch: {epoch} Loss: {loss.item()}")

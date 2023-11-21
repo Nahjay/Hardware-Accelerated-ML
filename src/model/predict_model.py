@@ -58,7 +58,9 @@ def predict_image(model, image_path, device):
         [
             transforms.Resize((64, 64)),
             transforms.ToTensor(),
-            transforms.Normalize((0.5,), (0.5,)),
+            transforms.Normalize(
+                (0.5, 0.5, 0.5), (0.5, 0.5, 0.5)
+            ),  # Adjust normalization as needed
         ]
     )
 
@@ -88,13 +90,17 @@ def main():
     model.to(device)
 
     # Example image path
-    image_path = "/app/data/airplane.jpg"
+    image_path = "/app/data/car.jpg"
 
     # Predict the image class
     predicted_class = predict_image(model, image_path, device)
 
     # Print the predicted class
     print(f"Predicted class: {predicted_class}")
+
+    # Print Corresponding Class Name
+    class_names = train_loader.dataset.classes
+    print(f"Predicted class name: {class_names[predicted_class]}")
 
 
 if __name__ == "__main__":
