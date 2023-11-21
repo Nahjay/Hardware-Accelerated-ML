@@ -9,7 +9,7 @@ from anime_model import AnimeCharacterCNN  # Assuming you have this model defini
 
 # Constants
 NUM_EPOCHS = 20
-LEARNING_RATE = 0.001
+LEARNING_RATE = 0.0001
 BATCH_SIZE = 64
 ROOT = pathlib.Path().cwd()
 DATA_PATH = ROOT.parent / "data"
@@ -82,6 +82,8 @@ def train_model(model, dataloader, num_epochs, device, save_path="anime_model.pt
             print(f"Epoch: {epoch} Loss: {loss.item()}")
 
         epoch_loss = running_loss / len(dataloader)
+        validation_loss = validate(model, dataloader, device)
+        scheduler.step(validation_loss)
         scheduler.step(epoch_loss)
 
         print(f"Epoch: {epoch} Loss: {loss.item()}")
