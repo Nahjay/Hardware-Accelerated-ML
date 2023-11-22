@@ -52,7 +52,7 @@ from image_model import ImageCNN
 from train_model import load_data
 
 
-def predict_image(model, image_path, device):
+def predict_image(image_path, device):
     # Load and preprocess the image
     transform = transforms.Compose(
         [
@@ -64,8 +64,13 @@ def predict_image(model, image_path, device):
         ]
     )
 
-    image = Image.open(image_path).convert("RGB")
+    image = Image.open(image_path)  # .convert("RGB")
     input_tensor = transform(image).unsqueeze(0).to(device)
+
+    model = ImageCNN(num_classes=10)
+    # model.load_state_dict(torch.load("image_model4.pth"))
+    model.to(device)
+    # model.train()
 
     # Make predictions
     with torch.no_grad():
@@ -84,6 +89,8 @@ def predict_image(model, image_path, device):
     #     print(f"Class: {top5_catid[i]}, probability: {top5_prob[i]}")
 
     # return top5_catid[0], top5_prob[0]
+
+    model.eval()
 
     # Sort probabilities in descending order
     sorted_probs, sorted_indices = torch.sort(predicted_probalities, descending=True)
@@ -104,23 +111,25 @@ def predict_image(model, image_path, device):
 
 def main():
     # Load the trained model
-    train_loader = load_data()
-    unique_labels = set(train_loader.dataset.classes)
-    num_classes = len(unique_labels)
-    print(f"Number of classes: {num_classes}")
-    model = ImageCNN(num_classes=num_classes)
-    model.load_state_dict(torch.load("image_model4.pth"))
-    model.eval()
+    # train_loader = load_data()
+    # unique_labels = set(train_loader.dataset.classes)
+    # num_classes = len(unique_labels)
+    # print(f"Number of classes: {num_classes}")
+    # for i in unique_labels:
+    #     print(i)
+    model = ImageCNN(num_classes=10)
+    # model.load_state_dict(torch.load("image_model4.pth"))
+    # model.eval()
 
     # Set device to GPU if available
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
     # Example image path
-    image_path = "/app/data/horse.jpg"
+    image_path = "/app/data/airplane.jpg"
 
     # Predict the image class
-    predicted_class = predict_image(model, image_path, device)
+    predicted_class = predict_image(image_path, device)
 
     # Print the predicted class
     print(f"Predicted class: {predicted_class}")
