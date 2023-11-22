@@ -3,13 +3,14 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torchvision.transforms as transforms
+
 from torch.utils.data import DataLoader
 from torchvision.datasets import STL10
 from image_model import ImageCNN  # Assuming you have this model definition
 
 # Constants
-NUM_EPOCHS = 40
-LEARNING_RATE = 0.00001
+NUM_EPOCHS = 500
+LEARNING_RATE = 0.000009
 BATCH_SIZE = 128
 ROOT = pathlib.Path().cwd()
 DATA_PATH = ROOT.parent / "data"
@@ -55,31 +56,47 @@ def initialize_model(num_classes):
     return model, device
 
 
-def validate(model, dataloader, criterion):
-    model.eval()  # Set the model to evaluation mode
-    total_loss = 0.0
-    correct_predictions = 0
-    total_samples = 0
+# def validate(model, dataloader, criterion):
+#     model.eval()  # Set the model to evaluation mode
+#     total_loss = 0.0
+#     correct_predictions = 0
+#     total_samples = 0
+
+#     with torch.no_grad():
+#         for inputs, labels in dataloader:
+#             outputs = model(inputs)
+#             loss = criterion(outputs, labels)
+#             total_loss += loss.item()
+
+#             _, predicted = torch.max(outputs, 1)
+#             correct_predictions += (predicted == labels).sum().item()
+#             total_samples += labels.size(0)
+
+#     average_loss = total_loss / len(dataloader)
+#     accuracy = correct_predictions / total_samples
+
+#     print(f"Validation Loss: {average_loss:.4f}, Accuracy: {accuracy * 100:.2f}%")
+
+#     return average_loss
+
+
+def validate(model, dataloader, device, criterion):
+    model.eval()
+    running_loss = 0.0
 
     with torch.no_grad():
         for inputs, labels in dataloader:
+            inputs, labels = inputs.to(device), labels.to(device)
             outputs = model(inputs)
             loss = criterion(outputs, labels)
-            total_loss += loss.item()
+            running_loss += loss.item()
 
-            _, predicted = torch.max(outputs, 1)
-            correct_predictions += (predicted == labels).sum().item()
-            total_samples += labels.size(0)
-
-    average_loss = total_loss / len(dataloader)
-    accuracy = correct_predictions / total_samples
-
-    print(f"Validation Loss: {average_loss:.4f}, Accuracy: {accuracy * 100:.2f}%")
-
-    return average_loss
+    epoch_loss = running_loss / len(dataloader)
+    model.train()
+    return epoch_loss
 
 
-def train_model(model, dataloader, num_epochs, device, save_path="image_model.pth"):
+def train_model(model, dataloader, num_epochs, device, save_path="image_model5.pth"):
     print("Training model...")
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
@@ -106,15 +123,17 @@ def train_model(model, dataloader, num_epochs, device, save_path="image_model.pt
             print(f"Epoch: {epoch} Loss: {loss.item()}")
 
         epoch_loss = running_loss / len(dataloader)
-        # validation_loss = validate(model, dataloader, device)
+        validation_loss = validate(model, dataloader, device, criterion)
+        print(f"Epoch: {epoch} Validation Loss: {validation_loss}")
         # scheduler.step(validation_loss)
-        scheduler.step(epoch_loss)
+        # scheduler.step(epoch_loss)
 
         print(f"Epoch: {epoch} Loss: {loss.item()}")
 
-        if epoch_loss < best_loss:
-            best_loss = epoch_loss
+        if validation_loss < best_loss:
+            best_loss = validation_loss
             torch.save(model.state_dict(), save_path)
+        scheduler.step(validation_loss)
 
 
 def main():
