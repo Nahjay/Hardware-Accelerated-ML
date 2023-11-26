@@ -1,6 +1,6 @@
 # Create a test harness for evaluating a model
-from model.generate_dataset import prepare_dataset
-from model.keras_model import define_model
+from generate_dataset import prepare_dataset
+from keras_model import define_model
 
 
 def test_harness():
