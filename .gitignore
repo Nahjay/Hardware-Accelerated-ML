@@ -1,5 +1,11 @@
 venv/
+/path
+*.gz
+path/
 data/
 *.jpg
 *.csv
 /data
+*.pth
+*.tar
+*.tar.gz
