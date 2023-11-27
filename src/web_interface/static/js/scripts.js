@@ -55,8 +55,6 @@ function upload() {
         // Set the error message element to the error message.
         error_message.innerHTML = 'Please upload a jpg or jpeg.';
         // Get the error message element.
-        var error_message = document.getElementById('error_message');
-        // Show the error message element.
         error_message.style.display = 'block';
     }
 }
