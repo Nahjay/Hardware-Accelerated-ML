@@ -8,7 +8,11 @@ from .model.predict_model import predict_class
 
 
 # Create Flask app
-app = Flask(__name__, template_folder="web_interface/templates")
+app = Flask(
+    __name__,
+    template_folder="web_interface/templates",
+    static_folder="web_interface/static",
+)
 
 
 @app.route("/")
