@@ -37,6 +37,14 @@ def predict_class(filename):
     # predict the class
     predicted_classes = predictions.argmax(axis=-1)
 
+    # Get the second and third highest probability
+    second_highest_prob = tf.math.top_k(predictions, k=2).values[0][1]
+    third_highest_prob = tf.math.top_k(predictions, k=3).values[0][2]
+
+    # Get the classes from the tensors of the second and third highest probability
+    second_highest_prob_class = tf.where(predictions == second_highest_prob)
+    third_highest_prob_class = tf.where(predictions == third_highest_prob)
+
     # Create a hash table to map the predicted class to the actual class
     class_names = {
         0: "airplane",
@@ -51,8 +59,16 @@ def predict_class(filename):
         9: "truck",
     }
 
+    # Map the second and third highest probability to the actual class
+    print(second_highest_prob_class)
+    print(third_highest_prob_class)
+
     # Print the predicted class based on the hash table
     print("Predicted class is: ", class_names[predicted_classes[0]])
+
+    # Print the second and third highest probability and their corresponding classes
+    print("Second highest probability is: ", second_highest_prob)
+    print("Third highest probability is: ", third_highest_prob)
 
 
 # entry point, run the example
