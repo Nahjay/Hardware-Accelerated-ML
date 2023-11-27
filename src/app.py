@@ -8,12 +8,12 @@ from .model.predict_model import predict_class
 
 
 # Create Flask app
-app = Flask(__name__)
+app = Flask(__name__, template_folder="web_interface/templates")
 
 
 @app.route("/")
 def index():
-    return render_template("web_interface/templates/index.html")
+    return render_template("index.html")
 
 
 @app.route("/predict", methods=["POST"])
