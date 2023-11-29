@@ -56,5 +56,26 @@ function upload() {
     }
 }
 
+// This function will bring in the title in a unique way.
+function revealTitle() {
+    // Get the title element.
+    var title = document.getElementById('title');
+    // Get the title text.
+    var title_text = title.innerHTML;
+    // Set the title element to an empty string.
+    title.innerHTML = '';
+    // Loop through each letter in the title text.
+    for (var i = 0; i < title_text.length; i++) {
+        // Create a span element.
+        var span = document.createElement('span');
+        // Set the span element to the current letter.
+        span.innerHTML = title_text[i];
+        // Set the span element to the current letter.
+        span.style.animationDelay = i * 0.1 + 's';
+        // Add the span element to the title element.
+        title.appendChild(span);
+    }
+}
+
 // Call the init function when the page is loaded.
 document.addEventListener('DOMContentLoaded', init);
