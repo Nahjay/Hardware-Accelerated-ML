@@ -1,10 +1,13 @@
 # Create API to host the model and web app
 
 import os
-from flask import Flask, request, jsonify, redirect, url_for, render_template
+from flask import Flask, request, jsonify, redirect, url_for, render_template, flash
 from werkzeug.utils import secure_filename
-
 from .model.predict_model import predict_class
+
+# Constants
+UPLOAD_FOLDER = "web_interface/uploads"
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
 
 
 # Create Flask app
@@ -14,30 +17,38 @@ app = Flask(
     static_folder="web_interface/static",
 )
 
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+
+def allowed_file(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        # Get the file from post request
-        f = request.files["file"]
-        print(f)
+        # Check if the post request has the file part
+        if "file" not in request.files:
+            flash("No file part")
+            return redirect(request.url)
 
-        #  Get the filename
-        x = f.filename
-        print(x)
+        file = request.files["file"]
 
-        # Save the file to ./uploads
-        basepath = os.path.dirname(__file__)
-        file_path = os.path.join(basepath, "uploads", secure_filename(f.filename))
-        f.save(file_path)
+        # If the user does not select a file, the browser will submit an empty part without a filename
+        if file.filename == "":
+            flash("No selected file")
+            return redirect(request.url)
 
-        # Make prediction
-        preds = predict_class(x)
-        print(preds)
-        return render_template(
-            "index.html", prediction_text="The image is {}".format(f.filename)
-        )
+        if file and allowed_file(file.filename):
+            # Save the uploaded file to the upload folder
+            filename = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
+            file.save(filename)
 
+            # Process the uploaded file using your model function
+            prediction_result = predict_class(filename)
+
+            # You can now use 'prediction_result' in your template or return it as needed
+            return render_template("index.html".format(prediction_result))
     return render_template("index.html")
 
 
