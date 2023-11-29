@@ -7,7 +7,7 @@ from .model.predict_model import predict_class
 
 # Constants
 UPLOAD_FOLDER = "web_interface/uploads"
-ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
 
 
 # Create Flask app

@@ -19,6 +19,29 @@
       <div class="upload_box">
         <div class="upload_container">
           <h2>Upload an image and see what the model thinks it is!</h2>
+          <div id="model_information">
+            <p>Supported file types: jpg, jpeg, png</p>
+            <p>
+              The model is trained to predict based of off 10 different
+              classifications of images found in the CIFAR-10 dataset. These
+              classes are as follows: airplane, automobile, bird, cat, deer,
+              dog, frog, horse, ship, and truck. If you upload an image that is
+              not one of these classes, the model will not be able to predict
+              it.
+            </p>
+            <p>
+              The model is not perfect and will not always be able to predict
+              the image correctly. If you upload an image that is not one of the
+              classes listed above, the model will still try to predict it. The
+              model will most likely predict the image to be one of the classes
+              listed above, but it will not be correct.
+            </p>
+            <p>
+              The model was trained using the CIFAR-10 dataset which can be
+              found here:
+              <a href="https://www.cs.toronto.edu/~kriz/cifar.html">CIFAR-10</a>
+            </p>
+          </div>
 
           <form
             id="form"
