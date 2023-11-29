@@ -2,14 +2,10 @@
 function init() { 
     // Get the current URL.
     var url = window.location.href;
-    // Get the current page.
-    var page = url.split('/').pop();
-    // Get the current page name.
-    var page_name = page.split('.')[0];
-    // Get the current page element.
-    var page_element = document.getElementById(page_name);
-    // Add the active class to the current page element.
-    page_element.classList.add('active');
+    // Get the index of the last slash.
+    var index = url.lastIndexOf('/');
+    // Get the last part of the URL.
+    var page = url.substring(index + 1);
 }
 
 // This function is called when a user clicks the browse button to upload a file.
@@ -76,6 +72,8 @@ function revealTitle() {
         title.appendChild(span);
     }
 }
+
+
 
 // Call the init function when the page is loaded.
 document.addEventListener('DOMContentLoaded', init);
