@@ -5,7 +5,7 @@ import tensorflow as tf
 import time
 
 
-def test_harness():
+def train():
     # Start timer
     start = time.time()
 
@@ -31,4 +31,4 @@ def test_harness():
 
 
 if __name__ == "__main__":
-    test_harness()
+    train()
