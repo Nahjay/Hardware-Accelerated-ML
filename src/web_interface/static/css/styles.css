@@ -62,3 +62,9 @@ body {
 .file_input {
     align-items: center;
 }
+
+.prediction_result {
+    color: red;
+    font-size: large;
+    font-weight: bold;
+}
