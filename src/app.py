@@ -45,11 +45,11 @@ def index():
             filename = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
             file.save(filename)
 
-            # Process the uploaded file using your model function
+            # Process the uploaded file using model
             prediction_result = predict_class(filename)
 
-            # You can now use 'prediction_result' in your template or return it as needed
-            return render_template("index.html".format(prediction_result))
+            # Render the index.html template and add the prediction result to the template
+            return render_template("index.html", prediction_result=prediction_result)
     return render_template("index.html")
 
 

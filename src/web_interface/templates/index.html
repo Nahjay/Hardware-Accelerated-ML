@@ -35,6 +35,11 @@
             />
             <button type="submit" name="submit">Upload</button>
           </form>
+          {% if prediction_result%}
+          <div>
+            <h2 id="prediction_result">Prediction: {{ prediction_result }}</h2>
+          </div>
+          {% endif %}
         </div>
       </div>
       <p id="file_name"></p>
