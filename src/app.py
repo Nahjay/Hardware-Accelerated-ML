@@ -17,6 +17,7 @@ app = Flask(
     static_folder="web_interface/static",
 )
 
+# Configure Flask app
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 

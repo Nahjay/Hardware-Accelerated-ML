@@ -29,7 +29,7 @@ def predict_class(filename):
     img = load_image(filename)
 
     # load model
-    model = load_model("model.h5")
+    model = load_model("model/model.h5")
 
     # evaluate the model
     predictions = model.predict(img)
@@ -69,6 +69,8 @@ def predict_class(filename):
     # Print the second and third highest probability and their corresponding classes
     print("Second highest probability is: ", second_highest_prob)
     print("Third highest probability is: ", third_highest_prob)
+
+    return class_names[predicted_classes[0]]
 
 
 # entry point, run the example
