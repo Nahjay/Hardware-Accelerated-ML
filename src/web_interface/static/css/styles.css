@@ -20,7 +20,8 @@ body {
     margin: auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    text-align: center;
     justify-content: center;
     padding: 10px;
     background-color: white;
@@ -30,7 +31,7 @@ body {
 /* Customize the upload content container */
 .upload_content {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 10px;
@@ -59,12 +60,10 @@ body {
     color: blueviolet;
 }
 
-.file_input {
-    align-items: center;
-}
-
-.prediction_result {
+/* Customize the upload box description */
+#prediction_result {
     color: red;
     font-size: large;
     font-weight: bold;
+    margin-top: 30px;
 }
