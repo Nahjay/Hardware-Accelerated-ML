@@ -3,7 +3,7 @@
 import os
 from flask import Flask, request, jsonify, redirect, url_for, render_template, flash
 from werkzeug.utils import secure_filename
-from .model.predict_model import predict_class
+from model.predict_model import predict_class
 
 # Constants
 UPLOAD_FOLDER = "web_interface/uploads"
