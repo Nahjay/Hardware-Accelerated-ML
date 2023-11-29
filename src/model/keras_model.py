@@ -1,13 +1,8 @@
-import tensorflow as tf
-from tensorflow import keras
-from keras import layers
 from keras.models import Sequential
 from keras.layers import Dense, Flatten, Conv2D, MaxPooling2D
 from keras.optimizers import SGD
 
 # Create CNN model for CIFAR-10 dataset
-
-
 def define_model():
     model = Sequential()
     model.add(
