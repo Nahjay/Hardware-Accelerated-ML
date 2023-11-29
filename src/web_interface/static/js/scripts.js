@@ -1,5 +1,3 @@
-// This is the scripts file for the web interface for my Machine Learning Model.
-
 // This function is called when the page is loaded.
 function init() { 
     // Get the current URL.
@@ -42,19 +40,21 @@ function upload() {
     var file = file_input.files[0].name;
     // Get the file extension.
     var extension = file.split('.').pop();
-    // Check if the file extension is csv.
-    if (extension == 'jpg' || extension == 'jpeg' ) {
+    // Check if the file extension is jpg or jpeg.
+    if (extension.toLowerCase() === 'jpg' || extension.toLowerCase() === 'jpeg') {
         // Get the form element.
         var form = document.getElementById('form');
         // Submit the form.
         form.submit();
-    }
-    else {
+    } else {
         // Get the error message element.
         var error_message = document.getElementById('error_message');
         // Set the error message element to the error message.
         error_message.innerHTML = 'Please upload a jpg or jpeg.';
-        // Get the error message element.
+        // Show the error message element.
         error_message.style.display = 'block';
     }
 }
+
+// Call the init function when the page is loaded.
+document.addEventListener('DOMContentLoaded', init);
