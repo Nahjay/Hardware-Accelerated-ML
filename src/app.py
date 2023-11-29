@@ -21,34 +21,15 @@ def index():
         # Get the file from post request
         f = request.files["file"]
 
-        # Save the file to ./uploads
-        basepath = os.path.dirname(__file__)
-        file_path = os.path.join(basepath, "uploads", secure_filename(f.filename))
-        f.save(file_path)
+        print(f.filename)
 
         # Make prediction
-        preds = predict_class(file_path)
-        return preds
+        # preds = predict_class(f)
+        return render_template(
+            "index.html", prediction_text="The image is {}".format(f.filename)
+        )
 
     return render_template("index.html")
-
-
-@app.route("/upload", methods=["POST"])
-def predict():
-    if request.method == "POST":
-        # Get the file from post request
-        f = request.files["file"]
-
-        # Save the file to ./uploads
-        basepath = os.path.dirname(__file__)
-        file_path = os.path.join(basepath, "uploads", secure_filename(f.filename))
-        f.save(file_path)
-
-        # Make prediction
-        preds = predict_class(file_path)
-        return preds
-
-    return None
 
 
 if __name__ == "__main__":
