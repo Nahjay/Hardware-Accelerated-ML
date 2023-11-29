@@ -1,22 +1,26 @@
 <!-- Home Page for Machine Learning Model Web Interface where users can upload a jpg image and then
-have that image be passed into my model which will return a guess for what the image is. -->
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Machine Learning Model Web Interface</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css', _external=True) }}">
-    <script src="{{ url_for('static', filename='js/scripts.js', _external=True) }}"></script>
-</head>
-
-<body>
-    <div class="container">
-        <h1>Machine Learning Model Web Interface</h1>
-        <h2>Upload an image and see what the model thinks it is!</h2>
-        <form action="index.php" method="post" enctype="multipart/form-data">
-            <input type="file" name="file">
-            <button type="submit" name="submit">Upload</button>
-        </form>
-    </div>
-</body>
+    have that image be passed into my model which will return a guess for what the image is. -->
+    
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Machine Learning Model Web Interface</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css', _external=True) }}">
+        <script src="{{ url_for('static', filename='js/scripts.js', _external=True) }}"></script>
+    </head>
+    
+    <body>
+        <div class="container">
+            <h1>Machine Learning Model Web Interface</h1>
+            <h2>Upload an image and see what the model thinks it is!</h2>
+            <form id="form" action="index.php" method="post" enctype="multipart/form-data" onsubmit="upload()">
+                <input type="file" name="file" id="file_input" onchange="file_selected()">
+                <button type="submit" name="submit">Upload</button>
+            </form>
+            <p id="file_name"></p>
+            <div id="error_message"></div>
+        </div>
+    </body>
+    </html>
+    
