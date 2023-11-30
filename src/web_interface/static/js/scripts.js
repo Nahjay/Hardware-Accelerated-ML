@@ -1,8 +1,24 @@
 // This function is called when the page is loaded.
-function init() { 
-    revealTitle();
-}
+function init() {
+    // Get the current URL.
+    var url = window.location.href;
+    // Get the index of the last slash.
+    var index = url.lastIndexOf('/');
+    // Get the last part of the URL.
+    var page = url.substring(index + 1);
 
+    // Check if the page variable is empty.
+    if (page === '') {
+        // Set the page variable to index.
+        page = 'index';
+    }
+
+    // Set the active class to the current page element.
+    var page_element = document.getElementById(page);
+    if (page_element) {
+        page_element.classList.add('active');
+    }
+}
 // This function is called when a user clicks the browse button to upload a file.
 function browse() {
     // Get the file input element.
@@ -22,15 +38,14 @@ function file_selected() {
 }
 
 // This function is called when a user clicks the upload button.
-function upload() { 
+function upload() {
     // Get the file input element.
     var file_input = document.getElementById('file_input');
     // Get the file name element.
     var file_name = document.getElementById('file_name');
-    // Get the file name.
-    var file = file_input.files[0].name;
-    // Check if the file name is empty.
-    if (file === '') {
+
+    // Check if the file input element is empty.
+    if (file_input.files.length === 0) {
         // Get the error message element.
         var error_message = document.getElementById('error_message');
         // Set the error message element to the error message.
@@ -39,6 +54,10 @@ function upload() {
         error_message.style.display = 'block';
         return;
     }
+
+    // Get the file name.
+    var file = file_input.files[0].name;
+
     // Get the file extension.
     var extension = file.split('.').pop();
     // Check if the file extension is jpg or jpeg.
@@ -57,28 +76,8 @@ function upload() {
     }
 }
 
-// This function will bring in the title in a unique way.
-function revealTitle() {
-    // Get the title element.
-    var title = document.getElementById('title');
-    // Get the title text.
-    var title_text = title.innerHTML;
-    // Set the title element to an empty string.
-    title.innerHTML = '';
-    // Loop through each letter in the title text.
-    for (var i = 0; i < title_text.length; i++) {
-        // Create a span element.
-        var span = document.createElement('span');
-        // Set the span element to the current letter.
-        span.innerHTML = title_text[i];
-        // Set the span element to the current letter.
-        span.style.animationDelay = i * 0.1 + 's';
-        // Add the span element to the title element.
-        title.appendChild(span);
-    }
-}
-
-
 
 // Call the init function when the page is loaded.
 document.addEventListener('DOMContentLoaded', init);
+document.getElementById('file_input').addEventListener('change', file_selected);
+document.getElementById('upload_button').addEventListener('click', upload);
