@@ -39,6 +39,9 @@ function file_selected() {
 
 // This function is called when a user clicks the upload button.
 function upload() {
+    // Prevent the default action.
+    // event.preventDefault();
+
     // Get the file input element.
     var file_input = document.getElementById('file_input');
     // Get the file name element.
@@ -49,10 +52,17 @@ function upload() {
         // Get the error message element.
         var error_message = document.getElementById('error_message');
         // Set the error message element to the error message.
-        error_message.innerHTML = 'Please select a file.';
+        error_message.innerHTML = 'Please select a file with the proper format.';
         // Show the error message element.
         error_message.style.display = 'block';
+
+        // Hide the error message element after 5 seconds.
+        setTimeout(function () {
+            error_message.style.display = 'none';
+        }, 5000);
+
         return;
+
     }
 
     // Get the file name.
@@ -74,10 +84,16 @@ function upload() {
         // Show the error message element.
         error_message.style.display = 'block';
     }
+
+    // Hide the error message element after 5 seconds.
+    setTimeout(function () {
+        error_message.style.display = 'none';
+    }, 5000);
+
 }
 
 
 // Call the init function when the page is loaded.
 document.addEventListener('DOMContentLoaded', init);
 document.getElementById('file_input').addEventListener('change', file_selected);
-document.getElementById('upload_button').addEventListener('click', upload);
+document.getElementById('form').addEventListener('click', upload);
