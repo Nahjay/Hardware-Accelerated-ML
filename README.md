@@ -57,6 +57,7 @@ The model and training parameters have been iteratively fine-tuned to enhance ac
 
 ## Image
 
-![Screenshot from 2023-11-21 22-29-48](https://github.com/Nahjay/Image-Recognition-ML/assets/127258036/8a57c446-4b97-423b-97f6-1407d28fa4b9)
+![Screenshot from 2023-11-30 17-25-56](https://github.com/Nahjay/Image-Recognition-ML/assets/127258036/b4c4f00d-c2ba-4a4e-b17d-0c506bd1571f)
+
 
 
