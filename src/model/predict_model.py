@@ -65,15 +65,15 @@ class predict_class:
         }
 
         # Map the second and third highest probability to the actual class
-        print(second_highest_prob_class)
-        print(third_highest_prob_class)
+        # print(second_highest_prob_class)
+        # print(third_highest_prob_class)
 
         # Print the predicted class based on the hash table
-        print("Predicted class is: ", class_names[predicted_classes[0]])
+        # print("Predicted class is: ", class_names[predicted_classes[0]])
 
         # Print the second and third highest probability and their corresponding classes
-        print("Second highest probability is: ", second_highest_prob)
-        print("Third highest probability is: ", third_highest_prob)
+        # print("Second highest probability is: ", second_highest_prob)
+        # print("Third highest probability is: ", third_highest_prob)
 
         return class_names[predicted_classes[0]]
 
