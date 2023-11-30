@@ -50,3 +50,7 @@ The model and training parameters have been iteratively fine-tuned to enhance ac
 
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
 - This project is licensed under the MIT license. See the `LICENSE.rst` file for more details.
+
+## Contact
+
+- **Nahjay Battieste** - [ email me ](mailto:nahjaybattieste@gmail.com)
