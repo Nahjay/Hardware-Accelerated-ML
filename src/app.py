@@ -1,8 +1,7 @@
 # Create API to host the model and web app
 
 import os
-from flask import Flask, request, jsonify, redirect, url_for, render_template, flash
-from werkzeug.utils import secure_filename
+from flask import Flask, request, redirect, render_template, flash
 from model.predict_model import predict_class
 
 # Constants
@@ -46,7 +45,7 @@ def index():
             file.save(filename)
 
             # Process the uploaded file using model
-            prediction_result = predict_class(filename)
+            prediction_result = predict_class.predict_class(filename)
 
             # Render the index.html template and add the prediction result to the template
             return render_template("index.html", prediction_result=prediction_result)
