@@ -1,4 +1,4 @@
-# Create a test harness for evaluating a model
+# Create a training function for evaluating a model
 from generate_dataset import prepare_dataset
 from keras_model import define_model
 import time

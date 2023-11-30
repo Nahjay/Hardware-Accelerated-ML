@@ -2,6 +2,7 @@ from tensorflow import keras
 
 
 class prepare_dataset:
+    """ Create a class to prepare the dataset """
     def init(self):
         pass
 
