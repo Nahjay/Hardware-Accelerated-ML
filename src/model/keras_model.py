@@ -1,13 +1,8 @@
-import tensorflow as tf
-from tensorflow import keras
-from keras import layers
 from keras.models import Sequential
 from keras.layers import Dense, Flatten, Conv2D, MaxPooling2D
 from keras.optimizers import SGD
 
 # Create CNN model for CIFAR-10 dataset
-
-
 def define_model():
     model = Sequential()
     model.add(
@@ -71,6 +66,8 @@ def define_model():
     model.add(Flatten())
     model.add(Dense(128, activation="relu", kernel_initializer="he_uniform"))
     model.add(Dense(10, activation="softmax"))
+    
+    
     # compile model
     opt = SGD(learning_rate=0.001, momentum=0.9)
     model.compile(optimizer=opt, loss="categorical_crossentropy", metrics=["accuracy"])

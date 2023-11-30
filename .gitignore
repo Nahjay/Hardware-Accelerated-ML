@@ -1,4 +1,5 @@
 venv/
+*.jpeg
 *.pyc
 /path
 *.gz

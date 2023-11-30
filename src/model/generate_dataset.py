@@ -1,9 +1,8 @@
-import tensorflow as tf
 from tensorflow import keras
-from tensorflow.keras import layers
 
 
 class prepare_dataset:
+    """ Create a class to prepare the dataset """
     def init(self):
         pass
 

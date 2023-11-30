@@ -1,0 +1,69 @@
+/* Create CSS for Machine Learning Web Interface */
+
+/* Set the background color of the page */
+body {
+    background-color: white;
+}
+
+/* Set the size of the header */
+.header {
+    padding: 10px;
+    text-align: center;
+    background: #1abc9c;
+    color: white;
+    font-size: 30px;
+}
+
+/* Customize the container div element */
+.container {
+    max-width: 800px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: white;
+    height: 100vh;
+}
+
+/* Customize the upload content container */
+.upload_content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: white;
+    text-align: center;
+}
+
+/* Customize the upload box */
+.upload_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+/* Customize the upload box title */
+#title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: blueviolet;
+}
+
+/* Customize the upload box description */
+#prediction_result {
+    color: red;
+    font-size: large;
+    font-weight: bold;
+    margin-top: 30px;
+}
