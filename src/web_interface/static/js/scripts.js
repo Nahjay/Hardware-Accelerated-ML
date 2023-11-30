@@ -1,11 +1,6 @@
 // This function is called when the page is loaded.
 function init() { 
-    // Get the current URL.
-    var url = window.location.href;
-    // Get the index of the last slash.
-    var index = url.lastIndexOf('/');
-    // Get the last part of the URL.
-    var page = url.substring(index + 1);
+    revealTitle();
 }
 
 // This function is called when a user clicks the browse button to upload a file.
@@ -34,6 +29,16 @@ function upload() {
     var file_name = document.getElementById('file_name');
     // Get the file name.
     var file = file_input.files[0].name;
+    // Check if the file name is empty.
+    if (file === '') {
+        // Get the error message element.
+        var error_message = document.getElementById('error_message');
+        // Set the error message element to the error message.
+        error_message.innerHTML = 'Please select a file.';
+        // Show the error message element.
+        error_message.style.display = 'block';
+        return;
+    }
     // Get the file extension.
     var extension = file.split('.').pop();
     // Check if the file extension is jpg or jpeg.

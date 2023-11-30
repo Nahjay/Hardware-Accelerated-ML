@@ -3,6 +3,7 @@
 import os
 from flask import Flask, request, redirect, render_template, flash
 from model.predict_model import predict_class
+import secrets
 
 # Constants
 UPLOAD_FOLDER = "web_interface/uploads"
@@ -15,6 +16,9 @@ app = Flask(
     template_folder="web_interface/templates",
     static_folder="web_interface/static",
 )
+
+# Set a secret key to enable the flask session cookies
+app.secret_key = secrets.token_urlsafe(16)
 
 # Configure Flask app
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
