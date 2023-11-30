@@ -54,3 +54,9 @@ The model and training parameters have been iteratively fine-tuned to enhance ac
 ## Contact
 
 - **Nahjay Battieste** - [ email me ](mailto:nahjaybattieste@gmail.com)
+
+## Image
+
+![Screenshot from 2023-11-21 22-29-48](https://github.com/Nahjay/Image-Recognition-ML/assets/127258036/8a57c446-4b97-423b-97f6-1407d28fa4b9)
+
+
